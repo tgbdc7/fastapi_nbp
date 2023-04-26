@@ -69,4 +69,4 @@ Now go to http://127.0.0.1:8000/docs.
 
 You will see the automatic interactive API documentation (provided by Swagger UI):
 
-![img.png](app/img/img.png)
+![img.png](app/img/docs-swagger.png)

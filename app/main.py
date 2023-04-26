@@ -51,8 +51,3 @@ def read_difference(code: str, topCount: int):
     res = {"max difference": max_diff, "most common difference": most_common_diff}
     return res
 
-
-if __name__ == '__main__':
-    import uvicorn
-
-    uvicorn.run(app, host="0.0.0.0", port=8000)
