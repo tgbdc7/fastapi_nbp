@@ -1,6 +1,7 @@
 from typing import Union
 from fastapi import FastAPI
 import requests
+from collections import Counter
 import json
 from datetime import date
 from app.core.config import get_app_settings
@@ -16,18 +17,14 @@ def get_application() -> FastAPI:
 app = get_application()
 
 
-@app.get("/")
-def read_root():
-    return {"Hello": "World"}
-
-
 @app.get("/average/{code}/{date}")
 def read_average(code: str, date: date):
     url = f'http://api.nbp.pl/api/exchangerates/rates/A/{code}/{date}/?format=json'
     req = requests.get(url)
     response = req.json()
     avg = response['rates'][0]['mid']
-    return avg
+    res = {"average": avg}
+    return res
 
 
 @app.get("/minmax/{code}/{topCount}")
@@ -36,8 +33,21 @@ def read_minmax(code: str, topCount: int):
     req = requests.get(url)
     response = req.json()
     minmax_list = [x['mid'] for x in response['rates']]
-    minmax = {'min': min(minmax_list), 'max': max(minmax_list)}
-    return minmax
+    res = {'min': min(minmax_list), 'max': max(minmax_list)}
+    return res
+
+
+@app.get("/difference/{code}/{topCount}")
+def read_difference(code: str, topCount: int):
+    url = f"http://api.nbp.pl/api/exchangerates/rates/c/{code}/last/{topCount}/?format=json"
+
+    req = requests.get(url)
+    response = req.json()
+    difference: list = [round(x['ask'] - x['bid'], 4) for x in response['rates']]
+    max_diff = max(difference)
+    most_common_diff = Counter(difference).most_common(1)[0][0]
+    res = {"max difference": max_diff, "most common difference": most_common_diff}
+    return res
 
 
 if __name__ == '__main__':
