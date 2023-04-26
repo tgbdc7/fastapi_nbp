@@ -14,6 +14,10 @@ def get_application() -> FastAPI:
 
 app = get_application()
 
+@app.get("/")
+def get_root():
+    return {"message": "Great, it works. Now you can check our endpoints."}
+
 
 @app.get("/average/{code}/{date}")
 def read_average(code: str, date: date):
@@ -51,4 +55,4 @@ def read_difference(code: str, topCount: int):
 if __name__ == '__main__':
     import uvicorn
 
-    uvicorn.run(app, host="127.0.0.1", port=8000)
+    uvicorn.run(app, host="0.0.0.0", port=8000)
