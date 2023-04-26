@@ -1,8 +1,6 @@
-from typing import Union
 from fastapi import FastAPI
 import requests
 from collections import Counter
-import json
 from datetime import date
 from app.core.config import get_app_settings
 

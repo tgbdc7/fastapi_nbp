@@ -28,6 +28,19 @@ You will see the JSON response as:
 
 ## Interactive API docs
 
-Now go to http://127.0.0.1:8000/docs.
+Now go to http://0.0.0.0/docs.
 
 You will see the automatic interactive API documentation (provided by Swagger UI):
+
+
+# #docker-compose 
+
+
+
+## build docker image 
+
+` docker build -t nbp .
+`
+`docker run -d --name nbp_api -p 80:80 nbp`
+
+`docker start nbp_api`
