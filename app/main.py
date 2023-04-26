@@ -21,8 +21,8 @@ def read_root():
     return {"Hello": "World"}
 
 
-@app.get("/abc/{code}/{date}")
-def read_averge(code: str, date: date):
+@app.get("/average/{code}/{date}")
+def read_average(code: str, date: date):
     url = f'http://api.nbp.pl/api/exchangerates/rates/A/{code}/{date}/?format=json'
     req = requests.get(url)
     response = req.json()
@@ -30,7 +30,14 @@ def read_averge(code: str, date: date):
     return avg
 
 
-
+@app.get("/minmax/{code}/{topCount}")
+def read_minmax(code: str, topCount: int):
+    url = f"http://api.nbp.pl/api/exchangerates/rates/a/{code}/last/{topCount}/?format=json"
+    req = requests.get(url)
+    response = req.json()
+    minmax_list = [x['mid'] for x in response['rates']]
+    minmax = {'min': min(minmax_list), 'max': max(minmax_list)}
+    return minmax
 
 
 if __name__ == '__main__':

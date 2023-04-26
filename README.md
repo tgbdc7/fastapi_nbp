@@ -17,10 +17,10 @@ pip install --upgrade pip
 
 ## Run it
 
-`uvicorn main:app --reload` 
+`uvicorn app.main:app --reload` 
 
 ## Check it
-Open your browser at http://127.0.0.1:8888/items/5?q=somequery.
+Open your browser at http://127.0.0.1:8000/
 
 You will see the JSON response as:
 
@@ -28,6 +28,6 @@ You will see the JSON response as:
 
 ## Interactive API docs
 
-Now go to http://127.0.0.1:8888/docs.
+Now go to http://127.0.0.1:8000/docs.
 
 You will see the automatic interactive API documentation (provided by Swagger UI):
